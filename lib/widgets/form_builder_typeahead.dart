@@ -1,4 +1,3 @@
-// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -261,31 +260,31 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
 
   /// Creates text field that auto-completes user input from a list of items
   FormBuilderTypeAhead({
-    Key key,
+    Key? key,
     //From Super
-    @required String name,
-    FormFieldValidator<T> validator,
-    T initialValue,
+    required String? name,
+    FormFieldValidator<T>? validator,
+    T? initialValue,
     InputDecoration decoration = const InputDecoration(),
-    ValueChanged<T> onChanged,
-    ValueTransformer<T> valueTransformer,
+    required ValueChanged<T?>? onChanged,
+    required ValueTransformer<T?>? valueTransformer,
     bool enabled = true,
-    FormFieldSetter<T> onSaved,
+    FormFieldSetter<T>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
-    VoidCallback onReset,
-    FocusNode focusNode,
-    @required this.itemBuilder,
-    @required this.suggestionsCallback,
+    VoidCallback? onReset,
+    FocusNode? focusNode,
+    required this.itemBuilder,
+    required this.suggestionsCallback,
     this.getImmediateSuggestions = false,
-    this.selectionToTextTransformer,
-    this.errorBuilder,
-    this.noItemsFoundBuilder,
-    this.loadingBuilder,
+    required this.selectionToTextTransformer,
+    required this.errorBuilder,
+    required this.noItemsFoundBuilder,
+    required this.loadingBuilder,
     this.debounceDuration = const Duration(milliseconds: 300),
     this.suggestionsBoxDecoration = const SuggestionsBoxDecoration(),
     this.suggestionsBoxVerticalOffset = 5.0,
     this.textFieldConfiguration = const TextFieldConfiguration(),
-    this.transitionBuilder,
+    required this.transitionBuilder,
     this.animationDuration = const Duration(milliseconds: 500),
     this.animationStart = 0.25,
     this.direction = AxisDirection.down,
@@ -295,16 +294,16 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
     this.hideSuggestionsOnKeyboardHide = true,
     this.keepSuggestionsOnLoading = true,
     this.autoFlipDirection = false,
-    this.suggestionsBoxController,
+    required this.suggestionsBoxController,
     this.keepSuggestionsOnSuggestionSelected = false,
-    this.onSuggestionSelected,
-    this.controller,
+    required this.onSuggestionSelected,
+    required this.controller,
     this.hideKeyboard = false,
   })  : assert(T == String || selectionToTextTransformer != null),
         super(
           key: key,
           initialValue: initialValue,
-          name: name,
+          name: name ?? "",
           validator: validator,
           valueTransformer: valueTransformer,
           onChanged: onChanged,
@@ -312,7 +311,6 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
           onSaved: onSaved,
           enabled: enabled,
           onReset: onReset,
-          decoration: decoration,
           focusNode: focusNode,
           builder: (FormFieldState<T> field) {
             final state = field as _FormBuilderTypeAheadState<T>;
@@ -324,11 +322,10 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
                 controller: state._typeAheadController,
                 style: state.enabled
                     ? textFieldConfiguration.style
-                    : theme.textTheme.subtitle1.copyWith(
+                    : theme.textTheme.subtitle1?.copyWith(
                         color: theme.disabledColor,
                       ),
                 focusNode: state.effectiveFocusNode,
-                decoration: state.decoration,
               ),
               // HACK to satisfy strictness
               suggestionsCallback: suggestionsCallback,
@@ -337,10 +334,10 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
                   suggestionsBox,
               onSuggestionSelected: (T suggestion) {
                 if (selectionToTextTransformer != null) {
-                  state._typeAheadController.text =
+                  state._typeAheadController?.text =
                       selectionToTextTransformer(suggestion);
                 } else {
-                  state._typeAheadController.text =
+                  state._typeAheadController?.text =
                       suggestion != null ? suggestion.toString() : '';
                 }
                 onSuggestionSelected?.call(suggestion);
@@ -376,14 +373,14 @@ class FormBuilderTypeAhead<T> extends FormBuilderField<T> {
 
 class _FormBuilderTypeAheadState<T>
     extends FormBuilderFieldState<FormBuilderTypeAhead<T>, T> {
-  TextEditingController _typeAheadController;
+  TextEditingController? _typeAheadController;
 
   @override
   void initState() {
     super.initState();
     _typeAheadController = widget.controller ??
         TextEditingController(text: widget.initialValue?.toString());
-    _typeAheadController.addListener(_handleControllerChanged);
+    _typeAheadController?.addListener(_handleControllerChanged);
   }
 
   void _handleControllerChanged() {
@@ -394,17 +391,17 @@ class _FormBuilderTypeAheadState<T>
     // notifications for changes originating from within this class -- for
     // example, the reset() method. In such cases, the FormField value will
     // already have been set.
-    if (_typeAheadController.text != value) {
-      didChange(_typeAheadController.text as T);
+    if (_typeAheadController?.text != value) {
+      didChange(_typeAheadController?.text as T);
     }
   }
 
   @override
-  void didChange(T value) {
+  void didChange(T? value) {
     super.didChange(value);
 
-    if (_typeAheadController.text != value) {
-      _typeAheadController.text = value.toString();
+    if (_typeAheadController?.text != value) {
+      _typeAheadController?.text = value.toString();
     }
   }
 
@@ -412,7 +409,7 @@ class _FormBuilderTypeAheadState<T>
   void dispose() {
     // Dispose the _typeAheadController when initState created it
     if (null == widget.controller) {
-      _typeAheadController.dispose();
+      _typeAheadController?.dispose();
     }
     super.dispose();
   }
@@ -420,6 +417,6 @@ class _FormBuilderTypeAheadState<T>
   @override
   void reset() {
     super.reset();
-    _typeAheadController.text = initialValue?.toString();
+    _typeAheadController?.text = initialValue?.toString() ?? "";
   }
 }

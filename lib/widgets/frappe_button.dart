@@ -56,21 +56,9 @@ class FrappeFlatButton extends StatelessWidget {
       return ButtonTheme(
         height: height,
         minWidth: fullWidth ? double.infinity : minWidth,
-        child: FlatButton.icon(
-          label: Text(
-            title,
-            style: _textStyle,
-          ),
+        child: IconButton(
           icon: FrappeIcon(icon!),
           onPressed: onPressed,
-          shape: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.transparent,
-            ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(6),
-            ),
-          ),
           color: _buttonColor,
           disabledColor: _buttonColor,
         ),
@@ -79,18 +67,8 @@ class FrappeFlatButton extends StatelessWidget {
       return ButtonTheme(
         height: height,
         minWidth: fullWidth ? double.infinity : minWidth,
-        child: FlatButton(
+        child: ElevatedButton(
             onPressed: onPressed,
-            shape: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.transparent,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(6),
-              ),
-            ),
-            color: _buttonColor,
-            disabledColor: _buttonColor,
             child: Text(
               title,
               style: _textStyle,
@@ -150,12 +128,8 @@ class FrappeRaisedButton extends StatelessWidget {
       return ButtonTheme(
         height: height,
         minWidth: fullWidth ? double.infinity : minWidth,
-        child: RaisedButton.icon(
-          color: color,
+        child: ElevatedButton.icon(
           label: tWidget,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
-          ),
           icon: FrappeIcon(
             icon!,
             size: iconSize,
@@ -167,12 +141,8 @@ class FrappeRaisedButton extends StatelessWidget {
       return ButtonTheme(
         height: height,
         minWidth: fullWidth ? double.infinity : minWidth,
-        child: RaisedButton(
-          color: color,
+        child: ElevatedButton(
           onPressed: onPressed,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6.0),
-          ),
           child: tWidget,
         ),
       );

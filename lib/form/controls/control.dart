@@ -49,6 +49,7 @@ Widget makeControl({
           doctypeField: field,
           doc: doc,
           onControlChanged: onControlChanged,
+          controller: TextEditingController(),
         );
       }
       break;
@@ -59,6 +60,7 @@ Widget makeControl({
           doctypeField: field,
           doc: doc,
           onControlChanged: onControlChanged,
+          controller: TextEditingController(),
         );
       }
       break;

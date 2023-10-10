@@ -4,13 +4,17 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../model/doctype_response.dart';
 
-class ControlInput {
-  String? Function(dynamic) Function(BuildContext, {String errorText})?
+mixin ControlInput {
+  String? Function(dynamic) Function(BuildContext, {String? errorText})?
       setMandatory(
     DoctypeField doctypeField,
   ) {
     if (doctypeField.reqd == 1) {
-      return FormBuilderValidators.required;
+      return ((p0, {errorText}) {
+        return ((p0) {
+          return "error";
+        });
+      });
     } else {
       return null;
     }

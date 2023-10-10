@@ -33,7 +33,7 @@ class DynamicLink extends StatefulWidget {
   final ItemBuilder? itemBuilder;
   final SuggestionsCallback? suggestionsCallback;
   final AxisDirection direction;
-  final TextEditingController? controller;
+  final TextEditingController controller;
 
   DynamicLink({
     this.key,
@@ -46,7 +46,7 @@ class DynamicLink extends StatefulWidget {
     this.showInputBorder = false,
     this.itemBuilder,
     this.suggestionsCallback,
-    this.controller,
+    required this.controller,
     this.direction = AxisDirection.down,
   });
 
@@ -195,6 +195,14 @@ class _DynamicLinkState extends State<DynamicLink> with Control, ControlInput {
                 return response["results"];
               }
             },
+        valueTransformer: (Object? value) {},
+        errorBuilder: (BuildContext context, Object? error) => SizedBox(),
+        noItemsFoundBuilder: (BuildContext context) => SizedBox(),
+        loadingBuilder: (BuildContext context) => SizedBox(),
+        transitionBuilder: (BuildContext context, Widget child,
+                AnimationController? controller) =>
+            SizedBox(),
+        suggestionsBoxController: SuggestionsBoxController(),
       ),
     );
   }

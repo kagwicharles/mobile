@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:isolate';
 import 'dart:ui';
 
@@ -33,14 +31,14 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: !kReleaseMode,
+      enabled: false,
       builder: (context) => FrappeApp(),
     ),
   );
 }
 
-void downloadCallback(String id, DownloadTaskStatus status, int progress) {
-  final SendPort send =
+void downloadCallback(String id, int status, int progress) {
+  final SendPort? send =
       IsolateNameServer.lookupPortByName('downloader_send_port');
-  send.send([id, status, progress]);
+  send?.send([id, status, progress]);
 }

@@ -74,115 +74,115 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      JsonTable(
-                        value,
-                        allowRowHighlight: true,
-                        rowHighlightColor: FrappePalette.grey[100],
-                        onRowHold: (index) {
-                          var idx = selectedRowsIdxs.indexOf(index);
-                          if (idx != -1) {
-                            selectedRowsIdxs.removeAt(idx);
-                          } else {
-                            selectedRowsIdxs.add(index);
-                          }
-                        },
-                        onRowSelect: (index, val) async {
-                          var v = await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return TableElement(
-                                      doc: val,
-                                      fields: tableFields,
-                                      meta: (snapshot.data as DoctypeResponse)
-                                          .docs[0],
-                                    );
-                                  },
-                                ),
-                              ) ??
-                              null;
+                      // JsonTable(
+                      //   value,
+                      //   allowRowHighlight: true,
+                      //   rowHighlightColor: FrappePalette.grey[100],
+                      //   onRowHold: (index) {
+                      //     var idx = selectedRowsIdxs.indexOf(index);
+                      //     if (idx != -1) {
+                      //       selectedRowsIdxs.removeAt(idx);
+                      //     } else {
+                      //       selectedRowsIdxs.add(index);
+                      //     }
+                      //   },
+                      //   onRowSelect: (index, val) async {
+                      //     var v = await Navigator.of(context).push(
+                      //           MaterialPageRoute(
+                      //             builder: (context) {
+                      //               return TableElement(
+                      //                 doc: val,
+                      //                 fields: tableFields,
+                      //                 meta: (snapshot.data as DoctypeResponse)
+                      //                     .docs[0],
+                      //               );
+                      //             },
+                      //           ),
+                      //         ) ??
+                      //         null;
 
-                          if (v != null) {
-                            value[index] = v;
-                            field.didChange(value);
-                          }
-                        },
-                        tableCellBuilder: (cellValue, index) {
-                          var isNum = double.tryParse(cellValue) != null;
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                              vertical: 2.0,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  value.length - 1 == index[0] && index[1] == 0
-                                      ? BorderRadius.only(
-                                          bottomLeft: Radius.circular(6),
-                                        )
-                                      : value.length - 1 == index[0] &&
-                                              index[1] == colCount - 1
-                                          ? BorderRadius.only(
-                                              bottomRight: Radius.circular(6),
-                                            )
-                                          : null,
-                              border: Border.all(
-                                width: 0.1,
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                cellValue,
-                                textAlign:
-                                    isNum ? TextAlign.end : TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        tableHeaderBuilder: (header, index) {
-                          return ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth:
-                                  MediaQuery.of(context).size.width / colCount,
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.0,
-                                vertical: 2.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: index == 0
-                                    ? BorderRadius.only(
-                                        topLeft: Radius.circular(6),
-                                      )
-                                    : index == columns.length - 1
-                                        ? BorderRadius.only(
-                                            topRight: Radius.circular(6),
-                                          )
-                                        : null,
-                                border: Border.all(width: 0.1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  header!,
-                                  textAlign: numFields.contains(header)
-                                      ? TextAlign.end
-                                      : TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: FrappePalette.grey[600],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        columns: columns,
-                      ),
+                      //     if (v != null) {
+                      //       value[index] = v;
+                      //       field.didChange(value);
+                      //     }
+                      //   },
+                      //   tableCellBuilder: (cellValue, index) {
+                      //     var isNum = double.tryParse(cellValue) != null;
+                      //     return Container(
+                      //       padding: EdgeInsets.symmetric(
+                      //         horizontal: 4.0,
+                      //         vertical: 2.0,
+                      //       ),
+                      //       decoration: BoxDecoration(
+                      //         borderRadius:
+                      //             value.length - 1 == index[0] && index[1] == 0
+                      //                 ? BorderRadius.only(
+                      //                     bottomLeft: Radius.circular(6),
+                      //                   )
+                      //                 : value.length - 1 == index[0] &&
+                      //                         index[1] == colCount - 1
+                      //                     ? BorderRadius.only(
+                      //                         bottomRight: Radius.circular(6),
+                      //                       )
+                      //                     : null,
+                      //         border: Border.all(
+                      //           width: 0.1,
+                      //         ),
+                      //       ),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           cellValue,
+                      //           textAlign:
+                      //               isNum ? TextAlign.end : TextAlign.start,
+                      //           style: TextStyle(
+                      //             fontSize: 14.0,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      //   tableHeaderBuilder: (header, index) {
+                      //     return ConstrainedBox(
+                      //       constraints: BoxConstraints(
+                      //         minWidth:
+                      //             MediaQuery.of(context).size.width / colCount,
+                      //       ),
+                      //       child: Container(
+                      //         padding: EdgeInsets.symmetric(
+                      //           horizontal: 4.0,
+                      //           vertical: 2.0,
+                      //         ),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: index == 0
+                      //               ? BorderRadius.only(
+                      //                   topLeft: Radius.circular(6),
+                      //                 )
+                      //               : index == columns.length - 1
+                      //                   ? BorderRadius.only(
+                      //                       topRight: Radius.circular(6),
+                      //                     )
+                      //                   : null,
+                      //           border: Border.all(width: 0.1),
+                      //         ),
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.all(8.0),
+                      //           child: Text(
+                      //             header!,
+                      //             textAlign: numFields.contains(header)
+                      //                 ? TextAlign.end
+                      //                 : TextAlign.start,
+                      //             style: TextStyle(
+                      //               fontSize: 14.0,
+                      //               color: FrappePalette.grey[600],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      //   columns: columns,
+                      // ),
                       SizedBox(
                         height: 5,
                       ),

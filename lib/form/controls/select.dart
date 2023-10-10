@@ -63,7 +63,6 @@ class Select extends StatelessWidget with Control, ControlInput {
           ? doc![doctypeField.fieldname]
           : doctypeField.defaultValue,
       name: doctypeField.fieldname,
-      hint: Text(doctypeField.label!),
       decoration: Palette.formFieldDecoration(
         label: doctypeField.label,
       ),

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
 import 'package:frappe_app/config/frappe_palette.dart';
 import 'package:frappe_app/model/offline_storage.dart';
 import 'package:html/parser.dart';
@@ -87,46 +86,22 @@ class DocVersion extends StatelessWidget {
     txt += "<p><span>$time</span></p></div>";
 
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 4.0,
-        top: 4.0,
-        left: 1,
-      ),
-      child: Html(
-        data: txt,
-        style: {
+        padding: const EdgeInsets.only(
+          bottom: 4.0,
+          top: 4.0,
+          left: 1,
+        ),
+        child: Html(data: txt, style: {
           "div": Style(
             fontSize: FontSize(12),
           ),
           "span": Style(
             color: FrappePalette.grey[600],
-          ),
-        },
-        onImageError: (a, b) {
-          // TODO
-          print(a);
-          print(b);
-        },
-        onLinkTap: (a, b, c, d) async {
-          print("a $a");
-          print("b $b");
-          print("c $c");
-          print("d $d");
-          // TODO
-          // final absoluteUrl = getAbsoluteUrl(url);
-          // if (await canLaunch(absoluteUrl)) {
-          //   await launch(
-          //     absoluteUrl,
-          //     headers: {HttpHeaders.cookieHeader: await DioHelper.getCookies()},
-          //   );
-          // } else {
-          //   throw 'Could not launch $url';
-          // }
-        },
-        // onLinkTap: (url, context, __) {
 
-        // },
-      ),
-    );
+            // onLinkTap: (url, context, __) {
+
+            // },
+          ),
+        }));
   }
 }
