@@ -1,12 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
 class DeskSidebarItemsResponse {
   late List<DeskMessage> message;
 
   DeskSidebarItemsResponse({required this.message});
 
   DeskSidebarItemsResponse.fromJson(Map<dynamic, dynamic> json) {
+    debugPrint("model:DeskSidebarItemsResponse: now serializing...");
     if (json['message'] != null) {
       message = [];
-      json['message'].forEach((v) {
+      debugPrint(
+          "model:DeskSidebarItemsResponse: message is ${json['message']['pages']}");
+
+      json['message']['pages'].forEach((v) {
+        Logger().f("model:DeskSidebarItemsResponse: new desk image item $v");
         message.add(new DeskMessage.fromJson(v));
       });
     }
@@ -20,11 +28,11 @@ class DeskSidebarItemsResponse {
 }
 
 class DeskMessage {
-  late String name;
+  late String? name;
   late String? category;
   late String? icon;
-  late String module;
-  late String label;
+  late String? module;
+  late String? label;
   late String? content;
 
   DeskMessage({

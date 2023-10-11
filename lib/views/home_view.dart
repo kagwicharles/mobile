@@ -48,6 +48,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   List<Widget> _buildScreens() {
+    debugPrint("home: started building home screens..");
     return [
       DeskView(),
       Awesombar(),

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:frappe_app/model/login_request.dart';
 import 'package:frappe_app/model/login_response.dart';
 import 'package:frappe_app/utils/dio_helper.dart';
@@ -74,6 +75,8 @@ class LoginViewModel extends BaseViewModel {
         loginButtonLabel = "Verify";
         return response;
       } else {
+        debugPrint(
+            "login viewmodel: other functions gettting called after login response");
         updateUserDetails(response);
 
         OfflineStorage.putItem(
@@ -81,14 +84,18 @@ class LoginViewModel extends BaseViewModel {
           loginRequest.usr,
         );
 
+        debugPrint("login viewmodel: cache users");
         await cacheAllUsers();
-        await initAwesomeItems();
+        // await initAwesomeItems();
+        debugPrint("login viewmodel: now initializing cookies");
         await DioHelper.initCookies();
+        debugPrint("login viewmodel: getting system settings");
         getSystemSettings();
 
         loginButtonLabel = "Success";
         notifyListeners();
 
+        debugPrint("login viewmodel: returning user login response");
         return response;
       }
     } catch (e) {

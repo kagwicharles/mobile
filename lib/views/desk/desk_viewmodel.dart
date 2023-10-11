@@ -37,14 +37,14 @@ class DeskViewModel extends BaseViewModel {
     setState(ViewState.busy);
     if (newModule.content != null) {
       currentModule = jsonEncode({
-        "name": newModule.name,
-        "title": newModule.name,
+        "name": newModule.name ?? "",
+        "title": newModule.name ?? "",
         "content": newModule.content!
       });
-      currentModuleTitle = newModule.name;
+      currentModuleTitle = newModule.name ?? "";
     } else {
-      currentModule = newModule.name;
-      currentModuleTitle = newModule.name;
+      currentModule = newModule.name ?? "";
+      currentModuleTitle = newModule.name ?? "";
     }
     await getDesktopPage();
     setState(ViewState.idle);
@@ -133,14 +133,14 @@ class DeskViewModel extends BaseViewModel {
       if (passedModule != null) {
         if (passedModule!.content != null) {
           currentModule = jsonEncode({
-            "name": passedModule!.name,
-            "title": passedModule!.name,
+            "name": passedModule!.name ?? "",
+            "title": passedModule!.name ?? "",
             "content": passedModule!.content!
           });
-          currentModuleTitle = passedModule!.name;
+          currentModuleTitle = passedModule!.name ?? "";
         } else {
-          currentModule = passedModule!.name;
-          currentModuleTitle = passedModule!.name;
+          currentModule = passedModule!.name ?? "";
+          currentModuleTitle = passedModule!.name ?? "";
         }
       } else if (modulesByCategory[modulesByCategory.keys.first]![0].content !=
           null) {
@@ -151,12 +151,12 @@ class DeskViewModel extends BaseViewModel {
               modulesByCategory[modulesByCategory.keys.first]![0].content!
         });
         currentModuleTitle =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
+            modulesByCategory[modulesByCategory.keys.first]![0].name ?? "";
       } else {
         currentModule =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
+            modulesByCategory[modulesByCategory.keys.first]![0].name ?? "";
         currentModuleTitle =
-            modulesByCategory[modulesByCategory.keys.first]![0].name;
+            modulesByCategory[modulesByCategory.keys.first]![0].name ?? "";
       }
 
       await getDesktopPage();

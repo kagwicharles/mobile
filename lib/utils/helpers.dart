@@ -320,10 +320,16 @@ initLocalNotifications() async {
 }
 
 initAwesomeItems() async {
+  debugPrint("function (initAwesomeItems): initializing awesome items");
   var deskSidebarItems = await locator<Api>().getDeskSideBarItems();
+  debugPrint(
+      "function (initAwesomeItems): serialized reponse $deskSidebarItems");
+
   var moduleDoctypesMapping = {};
 
   for (var item in deskSidebarItems.message) {
+    debugPrint("function (initAwesomeItems): starting reponse serialization");
+
     String module;
     if (item.content != null) {
       module = jsonEncode({
@@ -332,7 +338,7 @@ initAwesomeItems() async {
         "content": item.content,
       });
     } else {
-      module = item.name;
+      module = item.name ?? "";
     }
 
     var desktopPage = await locator<Api>().getDesktopPage(module);

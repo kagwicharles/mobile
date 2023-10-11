@@ -38,7 +38,7 @@ class DioApi implements Api {
               .split(';')[0]
               .split('=')[1];
         }
-
+        debugPrint("Sucess login: ${response?.data}");
         return LoginResponse.fromJson(response?.data);
       } else {
         throw ErrorResponse(
@@ -47,6 +47,7 @@ class DioApi implements Api {
         );
       }
     } catch (e) {
+      debugPrint("Error on login: $e");
       if (!(e is DioError)) rethrow;
 
       final error = e.error;
@@ -72,7 +73,7 @@ class DioApi implements Api {
   Future<DeskSidebarItemsResponse> getDeskSideBarItems() async {
     try {
       var response = await DioHelper.dio?.post(
-        '/method/frappe.desk.desktop.get_desk_sidebar_items',
+        '/method/frappe.desk.desktop.get_workspace_sidebar_items',
         options: Options(
           validateStatus: (status) {
             return status! < 500;
@@ -82,7 +83,7 @@ class DioApi implements Api {
 
       if (response?.statusCode == 417) {
         response = await DioHelper.dio?.post(
-          '/method/frappe.desk.desktop.get_wspace_sidebar_items',
+          '/method/frappe.desk.desktop.get_workspace_sidebar_items',
           options: Options(
             validateStatus: (status) {
               return status! < 500;
@@ -91,15 +92,22 @@ class DioApi implements Api {
         );
         response?.data["message"] = response?.data["message"]["pages"];
       }
+      debugPrint("dio:getDeskSideBarItems: ${response?.data}");
 
       if (response?.statusCode == HttpStatus.ok) {
+        debugPrint("dio:getDeskSideBarItems: now store in offline");
         if (await OfflineStorage.storeApiResponse()) {
           await OfflineStorage.putItem('deskSidebarItems', response?.data);
+          debugPrint("dio:getDeskSideBarItems: just stored data on ofline");
         }
 
         try {
+          debugPrint(
+              "dio:getDeskSideBarItems: starting DeskSidebarItemsResponse serialization");
           return DeskSidebarItemsResponse.fromJson(response?.data);
         } catch (e) {
+          debugPrint(
+              "dio:getDeskSideBarItems: error doing serialization*** $e");
           response?.data["message"] = [
             ...response?.data["message"]["Modules"],
             ...response?.data["message"]["Domains"],
@@ -117,6 +125,7 @@ class DioApi implements Api {
         throw ErrorResponse();
       }
     } catch (e) {
+      debugPrint("dio:getDeskSideBarItems: error*** $e");
       if (e is DioError) {
         var error = e.error;
         if (error is SocketException) {

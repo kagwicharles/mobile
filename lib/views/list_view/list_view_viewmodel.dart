@@ -284,7 +284,7 @@ class ListViewViewModel extends BaseViewModel {
         var desktopPage = module;
         for (final element in deskItems.message) {
           if (element.module == module) {
-            desktopPage = element.name;
+            desktopPage = element.name ?? "";
             break;
           }
         }
@@ -311,7 +311,7 @@ class ListViewViewModel extends BaseViewModel {
 
         for (final element in deskItems.message) {
           if (element.module == module) {
-            desktopPage = element.name;
+            desktopPage = element.name ?? "";
             break;
           }
         }
