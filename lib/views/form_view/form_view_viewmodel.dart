@@ -4,6 +4,7 @@ import 'package:frappe_app/model/common.dart';
 import 'package:frappe_app/model/get_doc_response.dart';
 import 'package:frappe_app/utils/loading_indicator.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 import '../../app/locator.dart';
 import '../../model/doctype_response.dart';
@@ -92,7 +93,7 @@ class FormViewViewModel extends BaseViewModel {
         docinfo = formData.docinfo;
       }
     } catch (e) {
-      error = e as ErrorResponse;
+      Logger().e("formviewviewmodel: error $e");
     }
 
     setState(ViewState.idle);

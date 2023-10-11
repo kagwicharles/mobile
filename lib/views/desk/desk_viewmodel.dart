@@ -9,6 +9,7 @@ import 'package:frappe_app/utils/loading_indicator.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:frappe_app/views/list_view/list_view.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../app/locator.dart';
@@ -93,12 +94,12 @@ class DeskViewModel extends BaseViewModel {
   }
 
   getDesktopPage() async {
-    DesktopPageResponse _desktopPage;
+    late DesktopPageResponse _desktopPage;
 
     try {
       _desktopPage = await locator<Api>().getDesktopPage(currentModule);
     } catch (e) {
-      throw e as ErrorResponse;
+      Logger().e("deskviewmodel: error $e");
     }
 
     desktopPage = _desktopPage;
@@ -162,7 +163,7 @@ class DeskViewModel extends BaseViewModel {
       await getDesktopPage();
       error = null;
     } catch (e) {
-      error = e as ErrorResponse;
+      Logger().e("desk_viewmodel: error $e");
     }
     setState(ViewState.idle);
   }

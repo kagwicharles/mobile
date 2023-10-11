@@ -92,7 +92,7 @@ class DeskView extends StatelessWidget {
                     return ListView(
                       padding: EdgeInsets.zero,
                       children: _generateChildren(
-                        desktopPage: model.desktopPage,
+                        desktopPage: model.desktopPage!,
                         model: model,
                         context: context,
                       ),
